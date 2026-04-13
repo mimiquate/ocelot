@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-50">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %> | Ocelot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="h-full">
+  <div class="min-h-full">
+    <header class="bg-gray-900 shadow">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="flex h-14 items-center gap-8">
+          <span class="text-white font-semibold tracking-tight">⚙ Ocelot</span>
+          <nav class="flex gap-5 text-sm">
+            <a href="<%= base %>" class="text-gray-400 hover:text-white transition-colors">Dashboard</a>
+            <a href="<%= base %>/jobs" class="text-gray-400 hover:text-white transition-colors">Jobs</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main class="mx-auto max-w-7xl px-6 py-8">
+      <%= inner %>
+    </main>
+  </div>
+</body>
+</html>
