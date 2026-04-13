@@ -3,10 +3,10 @@ defmodule Ocelot.Router do
 
   alias Ocelot.{HTML, Queries}
 
-  plug :match
-  plug :fetch_query_params
-  plug :put_base_path
-  plug :dispatch
+  plug(:match)
+  plug(:fetch_query_params)
+  plug(:put_base_path)
+  plug(:dispatch)
 
   get "/" do
     repo = conn.private.repo

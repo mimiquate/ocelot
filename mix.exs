@@ -8,7 +8,7 @@ defmodule Ocelot.MixProject do
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases(),
+      aliases: aliases()
     ]
   end
 
@@ -35,9 +35,9 @@ defmodule Ocelot.MixProject do
     ]
   end
 
-defp aliases do
+  defp aliases do
     [
-      dev: "run --no-halt dev.exs",
+      dev: "run --no-halt dev.exs"
     ]
   end
 end
