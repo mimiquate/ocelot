@@ -27,7 +27,7 @@ defmodule Ocelot.MixProject do
       {:jason, "~> 1.4"},
 
       # Oban
-      {:oban, "~> 2.21"},
+      {:oban, "~> 2.18"},
 
       # Dev
       {:bandit, "~> 1.6.0", only: [:dev]},
