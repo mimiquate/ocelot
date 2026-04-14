@@ -47,5 +47,4 @@ defmodule Ocelot.HTML do
 
   defp format_dt(nil), do: "—"
   defp format_dt(%DateTime{} = dt), do: Calendar.strftime(dt, "%Y-%m-%d %H:%M:%S UTC")
-
 end
