@@ -1,0 +1,52 @@
+<h1 class="text-2xl font-bold text-gray-900 mb-6">Dashboard</h1>
+
+<section class="mb-10">
+  <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">Jobs by State</h2>
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+    <%= for state <- state_order do %>
+    <% count = Map.get(state_counts, state, 0) %>
+    <a href="<%= base %>/jobs?state=<%= state %>"
+       class="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-gray-300 transition-all group">
+      <div class="mb-3">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= state_classes(state) %>">
+          <%= state %>
+        </span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+        <%= count %>
+      </div>
+    </a>
+    <% end %>
+  </div>
+</section>
+
+<section>
+  <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">Jobs by Queue</h2>
+  <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead>
+        <tr class="bg-gray-50">
+          <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Queue</th>
+          <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Total</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        <%= for row <- queue_counts do %>
+        <tr class="hover:bg-gray-50 transition-colors">
+          <td class="px-5 py-3 text-sm font-medium">
+            <a href="<%= base %>/jobs?queue=<%= row.queue %>" class="text-blue-600 hover:text-blue-800">
+              <%= row.queue %>
+            </a>
+          </td>
+          <td class="px-5 py-3 text-sm text-gray-700 tabular-nums"><%= row.total %></td>
+        </tr>
+        <% end %>
+        <%= if queue_counts == [] do %>
+        <tr>
+          <td colspan="2" class="px-5 py-6 text-sm text-gray-400 text-center">No queues found.</td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,59 @@
+<div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead>
+      <tr class="bg-gray-50">
+        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">ID</th>
+        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">State</th>
+        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Queue</th>
+        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Worker</th>
+        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Attempt</th>
+        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Inserted at</th>
+        <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Scheduled at</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-100">
+      <%= for job <- jobs do %>
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-5 py-3 text-sm font-mono">
+          <a href="<%= base %>/jobs/<%= job.id %>" class="text-blue-600 hover:text-blue-800 font-medium">
+            <%= job.id %>
+          </a>
+        </td>
+        <td class="px-5 py-3">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= state_classes(job.state) %>">
+            <%= job.state %>
+          </span>
+        </td>
+        <td class="px-5 py-3 text-sm text-gray-700"><%= job.queue %></td>
+        <td class="px-5 py-3 text-sm text-gray-700 font-mono max-w-xs truncate"><%= job.worker %></td>
+        <td class="px-5 py-3 text-sm text-gray-700 tabular-nums"><%= job.attempt %>/<%= job.max_attempts %></td>
+        <td class="px-5 py-3 text-sm text-gray-500 tabular-nums whitespace-nowrap"><%= format_dt(job.inserted_at) %></td>
+        <td class="px-5 py-3 text-sm text-gray-500 tabular-nums whitespace-nowrap"><%= format_dt(job.scheduled_at) %></td>
+      </tr>
+      <% end %>
+      <%= if jobs == [] do %>
+      <tr>
+        <td colspan="7" class="px-5 py-10 text-sm text-gray-400 text-center">No jobs found.</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-4 flex items-center justify-between text-sm text-gray-500">
+  <span>Page <%= page %> of <%= total_pages %></span>
+  <div class="flex gap-2">
+    <%= if page > 1 do %>
+    <a href="<%= base %>/jobs?page=<%= page - 1 %>"
+       class="px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors">
+      ← Previous
+    </a>
+    <% end %>
+    <%= if page < total_pages do %>
+    <a href="<%= base %>/jobs?page=<%= page + 1 %>"
+       class="px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors">
+      Next →
+    </a>
+    <% end %>
+  </div>
+</div>
