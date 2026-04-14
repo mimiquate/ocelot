@@ -15,26 +15,6 @@
       </div>
       <p class="text-sm text-gray-500 font-mono"><%= job.worker %></p>
     </div>
-    <div class="flex gap-2">
-      <form method="post" action="<%= base %>/jobs/<%= job.id %>/retry">
-        <button type="submit"
-                class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-          ↺ Retry
-        </button>
-      </form>
-      <form method="post" action="<%= base %>/jobs/<%= job.id %>/cancel">
-        <button type="submit"
-                class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-          ✕ Cancel
-        </button>
-      </form>
-      <form method="post" action="<%= base %>/jobs/<%= job.id %>/delete">
-        <button type="submit"
-                class="px-4 py-2 text-sm font-medium rounded-lg border border-red-300 text-red-600 bg-white hover:bg-red-50 transition-colors">
-          Delete
-        </button>
-      </form>
-    </div>
   </div>
 </div>
 
@@ -44,11 +24,7 @@
     <dl class="space-y-3">
       <div class="flex justify-between text-sm">
         <dt class="font-medium text-gray-500">Queue</dt>
-        <dd>
-          <a href="<%= base %>/jobs?queue=<%= job.queue %>" class="text-blue-600 hover:text-blue-800">
-            <%= job.queue %>
-          </a>
-        </dd>
+        <dd class="text-gray-900"><%= job.queue %></dd>
       </div>
       <div class="flex justify-between text-sm">
         <dt class="font-medium text-gray-500">Priority</dt>

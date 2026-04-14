@@ -9,31 +9,19 @@ defmodule Ocelot.Router do
   plug(:dispatch)
 
   get "/" do
-    repo = conn.private.repo
     base = conn.assigns.base
-
-    state_counts = Queries.counts_by_state(repo)
-    queue_counts = Queries.counts_by_queue(repo)
-
-    html(conn, HTML.dashboard(state_counts, queue_counts, base))
+    redirect(conn, "#{base}/jobs")
   end
 
   get "/jobs" do
     repo = conn.private.repo
     base = conn.assigns.base
-    params = conn.query_params
 
-    filters = [
-      state: params["state"],
-      queue: params["queue"],
-      worker: params["worker"]
-    ]
+    page = parse_page(conn.query_params["page"])
 
-    page = parse_page(params["page"])
+    {jobs, total_pages} = Queries.list_jobs(repo, page: page)
 
-    {jobs, total_pages} = Queries.list_jobs(repo, [{:page, page} | filters])
-
-    html(conn, HTML.job_list(jobs, filters, page, total_pages, base))
+    html(conn, HTML.job_list(jobs, page, total_pages, base))
   end
 
   get "/jobs/:id" do
@@ -44,30 +32,6 @@ defmodule Ocelot.Router do
       nil -> send_resp(conn, 404, "Job not found")
       job -> html(conn, HTML.job_detail(job, base))
     end
-  end
-
-  post "/jobs/:id/retry" do
-    oban = conn.private.oban
-    base = conn.assigns.base
-
-    Queries.retry_job(oban, String.to_integer(id))
-    redirect(conn, "#{base}/jobs/#{id}")
-  end
-
-  post "/jobs/:id/cancel" do
-    oban = conn.private.oban
-    base = conn.assigns.base
-
-    Queries.cancel_job(oban, String.to_integer(id))
-    redirect(conn, "#{base}/jobs/#{id}")
-  end
-
-  post "/jobs/:id/delete" do
-    repo = conn.private.repo
-    base = conn.assigns.base
-
-    Queries.delete_job(repo, String.to_integer(id))
-    redirect(conn, "#{base}/jobs")
   end
 
   match _ do

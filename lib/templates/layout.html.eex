@@ -8,14 +8,10 @@
 </head>
 <body class="h-full">
   <div class="min-h-full">
-    <header class="bg-gray-900 shadow">
+    <header class="bg-gray-900">
       <div class="mx-auto max-w-7xl px-6">
-        <div class="flex h-14 items-center gap-8">
-          <span class="text-white font-semibold tracking-tight">⚙ Ocelot</span>
-          <nav class="flex gap-5 text-sm">
-            <a href="<%= base %>" class="text-gray-400 hover:text-white transition-colors">Dashboard</a>
-            <a href="<%= base %>/jobs" class="text-gray-400 hover:text-white transition-colors">Jobs</a>
-          </nav>
+        <div class="flex h-14 items-center">
+          <span class="text-white font-semibold tracking-tight">Ocelot</span>
         </div>
       </div>
     </header>
