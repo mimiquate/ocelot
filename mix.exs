@@ -1,12 +1,17 @@
 defmodule Ocelot.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/mimiquate/ocelot"
+
   def project do
     [
       app: :ocelot,
-      version: "0.1.0",
+      version: "0.0.1",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
+      description: description(),
+      package: package(),
+      source_url: @source_url,
       deps: deps(),
       aliases: aliases()
     ]
@@ -32,6 +37,20 @@ defmodule Ocelot.MixProject do
       # Dev
       {:bandit, "~> 1.6.0", only: [:dev]},
       {:ecto_sqlite3, "~> 0.18", only: [:dev]}
+    ]
+  end
+
+  defp description() do
+    "An unofficial Oban Web Lite Dashboard, no dependency with phoenix"
+  end
+
+  defp package() do
+    [
+      files: ~w(lib .formatter.exs mix.exs README* LICENSE*),
+      licenses: ["Apache-2.0"],
+      links: %{
+        "GitHub" => @source_url
+      }
     ]
   end
 
